@@ -25,9 +25,6 @@ Optimized for desktop and mobile (best on desktop site), NoteFlow offers a seaml
 
 
 
-## 📂 Project Structure
-
-
 ## Project output
 
 <img src="note 3.png" alt="workflow" width="100%">
