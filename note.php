@@ -1,6 +1,6 @@
 <?php
 // Connect to DB
-$mysqli = new mysqli("localhost", "NoteFlow_User", "Oracle@123", "NoteFlow");
+$mysqli = new mysqli("localhost", "root", "", "NoteFlow", 3307);
 if ($mysqli->connect_error) {
     die("DB connection failed: " . $mysqli->connect_error);
 }
@@ -26,15 +26,40 @@ $content = $content ?? ''; // blank if no content found
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <title>NoteFlow - <?php echo htmlspecialchars($id); ?></title>
     <style>
-        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #282c34; color: white; }
-        #editor { width: 100vw; height: 100vh; padding: 1rem; font-size: 1.2rem; background: #1e2127; border: none; color: white; resize: none; outline: none; }
-        #status { position: fixed; bottom: 10px; right: 10px; font-size: 0.9rem; color: #61dafb; }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #282c34;
+            color: white;
+        }
+
+        #editor {
+            width: 100vw;
+            height: 100vh;
+            padding: 1rem;
+            font-size: 1.2rem;
+            background: #1e2127;
+            border: none;
+            color: white;
+            resize: none;
+            outline: none;
+        }
+
+        #status {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            font-size: 0.9rem;
+            color: #61dafb;
+        }
     </style>
 </head>
+
 <body>
     <textarea id="editor" placeholder="Start typing..."><?php echo htmlspecialchars($content); ?></textarea>
     <div id="status">Saved</div>
@@ -53,13 +78,13 @@ $content = $content ?? ''; // blank if no content found
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id: '<?php echo addslashes($id); ?>', content: content })
             })
-            .then(response => response.json())
-            .then(data => {
-                status.textContent = data.success ? 'Saved' : 'Error saving';
-            })
-            .catch(() => {
-                status.textContent = 'Error saving';
-            });
+                .then(response => response.json())
+                .then(data => {
+                    status.textContent = data.success ? 'Saved' : 'Error saving';
+                })
+                .catch(() => {
+                    status.textContent = 'Error saving';
+                });
         }
 
         // Auto-save every second if content changed
@@ -71,4 +96,5 @@ $content = $content ?? ''; // blank if no content found
         }, 1000);
     </script>
 </body>
+
 </html>

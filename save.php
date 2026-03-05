@@ -17,7 +17,7 @@ if (!preg_match('/^[A-Za-z0-9_-]+$/', $id)) {
 }
 
 // Connect to DB
-$mysqli = new mysqli("localhost", "NoteFlow_User", "Oracle@123", "NoteFlow");
+$mysqli = new mysqli("localhost", "root", "", "NoteFlow", 3307);
 if ($mysqli->connect_error) {
     echo json_encode(['success' => false, 'error' => 'DB connection failed: ' . $mysqli->connect_error]);
     exit;
